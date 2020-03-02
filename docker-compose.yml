@@ -1,0 +1,13 @@
+version: '2.1' # version 2 is intentional, 3 is aimed at swarm and doesn't allow us to set mem-limits
+
+services:
+  postgres:
+    image: postgres:9.5.8-alpine
+    ports:
+      - 5432:5432
+    environment:
+      LC_ALL: C.UTF-8
+      POSTGRES_DB: woutertest
+      POSTGRES_USER: servicehouse
+      POSTGRES_PASSWORD: servicehouse
+    container_name: woutertest
