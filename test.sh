@@ -2,7 +2,7 @@
 
 database="poc_bytea_db"
 seq="general_sequence"
-batchCount=1000
+batchCount=200
 batchSize=100
 filename=dump_$(date +%m-%d-%y_%H%M%S).sql
 export PGPASSWORD="servicehouse"
@@ -19,8 +19,8 @@ FROM generate_series(1, \$1);
 
 function recreate_db () {
   echo "(Re-)creating database"
-  psql -h localhost -d bla servicehouse -c "drop database if exists $database;"
-  psql -h localhost -d bla servicehouse -c "create database $database;"
+  psql -h localhost -d postgres servicehouse -c "drop database if exists $database;"
+  psql -h localhost -d postgres servicehouse -c "create database $database;"
 }
 
 recreate_db
