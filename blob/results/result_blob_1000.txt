@@ -1,0 +1,6 @@
+pg_restore: creating ACL "SCHEMA public"
+WARNING: errors ignored on restore: 1
+
+real	0m1,982s
+user	0m0,094s
+sys	0m0,266s

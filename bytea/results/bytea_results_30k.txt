@@ -1,0 +1,46 @@
+INSERT 0 100
+INSERT 0 100
+INSERT 0 100
+Current amount of bytea records:
+ count
+--------
+ 300000
+(1 row)
+
+Dumping to dump_03-03-20_153203.sql
+pg_dump: [tar archiver] could not write to output file: No space left on device
+
+real	1m12,434s
+user	0m2,014s
+sys	0m21,591s
+Done dumping 03-03-20_163728
+-rw-rw-r-- 1 wouter wouter 2,9G mrt  3 16:37 dump_03-03-20_153203.sql
+(Re-)creating database
+DROP DATABASE
+CREATE DATABASE
+Restoring ... from dump_03-03-20_153203.sql
+pg_restore: connecting to database for restore
+pg_restore: [archiver (db)] Error while INITIALIZING:
+pg_restore: [archiver (db)] could not execute query: ERROR:  unrecognized configuration parameter "idle_in_transaction_session_timeout"
+    Command was: SET idle_in_transaction_session_timeout = 0;
+
+pg_restore: creating SCHEMA "public"
+pg_restore: creating COMMENT "SCHEMA public"
+pg_restore: creating EXTENSION "plpgsql"
+pg_restore: creating COMMENT "EXTENSION plpgsql"
+pg_restore: creating FUNCTION "public.random_bytea(integer)"
+pg_restore: creating SEQUENCE "public.general_sequence"
+pg_restore: creating TABLE "public.poc_with_bytea"
+pg_restore: processing data for table "public.poc_with_bytea"
+pg_restore: [archiver (db)] Error while PROCESSING TOC:
+pg_restore: [archiver (db)] Error from TOC entry 2100; 0 39846 TABLE DATA poc_with_bytea servicehouse
+pg_restore: [archiver (db)] COPY failed for table "poc_with_bytea": ERROR:  invalid hexadecimal data: odd number of digits
+CONTEXT:  COPY poc_with_bytea, line 43804, column blob_bytea: "\x5f414377c2bf3b3430be4eb6dc257afc0fd3eb7119a9976ca071a815520060b241a3290363643893228649ffacc4fbbb98..."
+pg_restore: executing SEQUENCE SET general_sequence
+pg_restore: creating CONSTRAINT "public.poc_with_bytea bytea_seq"
+pg_restore: creating ACL "SCHEMA public"
+WARNING: errors ignored on restore: 2
+
+real	0m35,179s
+user	0m0,296s
+sys	0m1,219s

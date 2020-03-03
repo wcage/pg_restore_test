@@ -2,10 +2,14 @@
 
 database="poc_bytea_db"
 seq="general_sequence"
-batchCount=200
-batchSize=100
-filename=dump_$(date +%m-%d-%y_%H%M%S).sql
+batchCount=3
+batchSize=10
+fileSizeBytes=10000
+timestamp=$(date +%m-%d-%y_%H%M%S)
+filename=dump_$timestamp.sql
 export PGPASSWORD="servicehouse"
+
+echo "results with batchCount=$batchCount, batchSize=$batchSize and fileSizeBytes=$fileSizeBytes at $timestamp"
 
 random_bytea_func="CREATE OR REPLACE FUNCTION random_bytea(bytea_length integer)
     RETURNS bytea AS \$body$
@@ -34,7 +38,7 @@ echo "Inserting $batchCount batches with $batchSize (total: $((batchCount*batchS
 
 for ((j=1; j<=$batchCount; j++))
 do
-  query="insert into poc_with_bytea (id, blob_bytea) values (nextval('$seq'), random_bytea(10000)) "
+  query="insert into poc_with_bytea (id, blob_bytea) values (nextval('$seq'), random_bytea($fileSizeBytes)) "
   for ((i=1; i<=$batchSize-1; i++))
   do
     query+=", (nextval('$seq'), random_bytea(35000))"
@@ -46,7 +50,6 @@ echo "Current amount of bytea records:"
 psql -h localhost -d $database servicehouse -c "select count(*) from poc_with_bytea"
 
 echo "Dumping to $filename"
-
 time pg_dump -h localhost -U servicehouse $database -F t > "$filename"
 
 echo "Done dumping $(date +%m-%d-%y_%H%M%S)"
@@ -54,7 +57,7 @@ ls -lah | grep "$filename"
 
 recreate_db
 
-echo "Restoring ... from $filename"
+echo "Restoring from $filename"
 time pg_restore -h localhost -U servicehouse -d $database -v "$filename"
 
 #echo "Removing $filename"
