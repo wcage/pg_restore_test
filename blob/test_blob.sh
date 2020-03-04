@@ -5,8 +5,8 @@
 database="poc_blob_db"
 table="poc_with_blob"
 seq="blob_sequence"
-blobCount=1000
-fileSizeBytes=10000
+blobCount=200000
+fileSizeBytes=30000
 timestamp=$(date +%m-%d-%y_%H%M%S)
 
 filename=dump_$timestamp.sql

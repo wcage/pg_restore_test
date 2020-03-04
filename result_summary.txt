@@ -1,0 +1,7 @@
+Tijdsduur (pg_dump + pg_restore, mm:ss)
+
+      #Records
+      100000       25000
+blob  00:38+04:41  00:14+01:13
+
+bytea 00:24+01:07  00:06+00:13

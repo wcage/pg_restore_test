@@ -1,10 +1,12 @@
 #!/bin/bash
 
+#Example usage: ./test_bytea.sh $> results/bytea_$(date +%m-%d-%y_%H%M%S)_output.txt
+
 database="poc_bytea_db"
 seq="general_sequence"
-batchCount=3
-batchSize=10
-fileSizeBytes=10000
+batchCount=1500
+batchSize=100
+fileSizeBytes=30000
 timestamp=$(date +%m-%d-%y_%H%M%S)
 filename=dump_$timestamp.sql
 export PGPASSWORD="servicehouse"
